@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lumen Deep — a bioluminescent idle game</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.3' stop-color='%237ff9ff'/%3E%3Cstop offset='1' stop-color='%237ff9ff' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%23061229'/%3E%3Ccircle cx='32' cy='32' r='26' fill='url(%23g)'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <section id="stage">
+      <canvas id="scene" aria-label="The deep sea. Click to pulse light."></canvas>
+
+      <header id="hud">
+        <div class="hud-main">
+          <div id="lumen" class="lumen-num">0</div>
+          <div class="lumen-label">lumen</div>
+        </div>
+        <div class="hud-rate"><span id="lps">0</span> per second <span id="lps-mult"></span></div>
+        <div id="res" title="Resonance — pulse by hand to fill it. When full, your reef Blooms.">
+          <div class="res-head"><span id="res-label">Resonance</span><span id="res-pct">0%</span></div>
+          <div class="res-bar"><div id="res-fill"></div></div>
+        </div>
+        <div id="buffs"></div>
+      </header>
+
+      <div id="depth-meter" title="Your depth">
+        <div class="dm-track"><div class="dm-fill" id="dm-fill"></div><div class="dm-marker" id="dm-marker"></div></div>
+        <div class="dm-ticks" id="dm-ticks"></div>
+      </div>
+
+      <div id="zone-title"><span id="zone-name">Sunlit Shallows</span><small id="zone-depth">0 m</small></div>
+      <div id="hint">Click the water to pulse light</div>
+
+      <footer id="stage-foot">
+        <div id="ticker"><span id="ticker-text"></span></div>
+      </footer>
+    </section>
+
+    <aside id="panel">
+      <div id="title-bar">
+        <h1>Lumen <span>Deep</span></h1>
+        <div id="pearl-chip" class="hidden" title="Pearls"><i class="pearl"></i><span id="pearl-count">0</span></div>
+      </div>
+      <nav id="tabs" role="tablist"></nav>
+      <div id="tab-body"></div>
+    </aside>
+  </div>
+
+  <div id="toasts"></div>
+  <div id="modal" class="hidden"><div class="modal-card"><div id="modal-body"></div></div></div>
+  <div id="tooltip" class="hidden"></div>
+
+  <script>window.__errs = []; addEventListener("error", e => __errs.push(e.message + " " + (e.filename || "").split("/").pop() + ":" + e.lineno));</script>
+  <script src="js/core.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

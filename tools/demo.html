@@ -1,0 +1,23 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script src="../js/core.js"></script><script>
+// Writes a preset save and opens the game (headless screenshot testing). Usage: demo.html#mid | #late | #won
+const C = Core, s = C.newState(); const [p, tab] = (location.hash.slice(1) || 'mid').split('&');
+s.stats.clicks = 500; s.stats.playTime = 3000; s.settings.sound = false;
+if (p === 'mid') {
+  s.depth = s.maxDepth = 3; s.creatures = [80, 60, 45, 30, 22, 14, 6, 2, 0, 0, 0, 0];
+  s.lumen = 4e8; s.runEarned = s.totalEarned = 2e9; s.resonance = 64;
+  s.buffs.frenzy = 30; s.moon = { life: 9, max: 13, seed: 0.55 };
+} else {
+  s.depth = s.maxDepth = 5; s.creatures = [190, 160, 140, 120, 110, 100, 95, 90, 85, 80, 70, 50];
+  s.lumen = 3e18; s.runEarned = 5e19; s.totalEarned = 8e21; s.pearls = 420; s.pearlsEarned = 1500;
+  s.relics = { heart: 6, memory: 3, echo: 4, brood: 5 }; s.stats.prestiges = 4;
+  s.lantern = { stage: p === 'won' ? 5 : 2, fill: 3e20 }; s.buffs.bloom = 12; s.victory = p === 'won'; s.victorySeen = true;
+  C.UPGRADES.forEach(u => { if (u.req(s) && u.cost < 1e17 && C.creatureUnlocked(s, u.tier || 0)) s.upgrades[u.id] = 1; });
+}
+if (p === 'fresh') { localStorage.clear(); } else {
+C.checkAchievements(s);
+s.lastSave = Date.now();
+localStorage.setItem('lumen-deep-save-v1', JSON.stringify(s));
+localStorage.setItem('lumen-deep-save-v1-tabs', JSON.stringify(['creatures','evolve','descend','surface','lantern','records','options']));
+}
+document.write('<style>html,body{margin:0;height:100%;overflow:hidden}iframe{border:0;width:100%;height:100%;display:block}</style><iframe src="../index.html#' + (tab || '') + '"></iframe>');
+</script>
